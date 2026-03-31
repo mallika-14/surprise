@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Wish</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .content-box {
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            max-width: 600px;
+        }
+
+        #msg {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 2s ease-out;
+        }
+
+        #wish {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            margin: 20px 0;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #nextBtn {
+            margin-top: 50px;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            color: white;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        #nextBtn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-box">
+        <div id="msg">To our favorite person...</div>
+        <div id="wish">Happy Birthday  Sowji  🎉</div>
+        <button id="nextBtn" onclick="nextPage()">See our memories →</button>
+    </div>
+
+    <script>
+        function createParticles() {
+            for(let i=0; i<30; i++) {
+                let p = document.createElement('div');
+                p.className = 'particle';
+                let size = Math.random() * 8 + 4 + 'px';
+                p.style.width = size;
+                p.style.height = size;
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = Math.random() * 3 + 5 + 's';
+                p.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(p);
+            }
+        }
+
+        window.onload = () => {
+            createParticles();
+            
+            // Smoother sequence
+            setTimeout(() => { 
+                document.getElementById('msg').style.opacity = 1; 
+                document.getElementById('msg').style.transform = "translateY(0)";
+            }, 1000);
+            
+            setTimeout(() => { 
+                document.getElementById('wish').style.opacity = 1;
+                document.getElementById('wish').style.transform = "scale(1)";
+            }, 3000);
+
+            setTimeout(() => { 
+                document.getElementById('nextBtn').style.opacity = 1; 
+            }, 5500);
+        };
+
+        function nextPage() {
+            window.location.href = "memories.html";
+        }
+    </script>
+    <audio id="myMusic" loop>
+  <source src="music/song3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.body.addEventListener('click', function() {
+    var audio = document.getElementById("myMusic");
+    audio.play();
+  }, { once: true }); 
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #ff8fa3;
+            --dark-pink: #ff4d6d;
+            --paper-white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-gradient);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* The Box that holds everything */
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .envelope-wrapper {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background-color: var(--primary-pink);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        /* Top Flap */
+        .envelope-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-top: 100px solid var(--dark-pink);
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* Side Folds */
+        .envelope-wrapper::after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            width: 0; height: 0;
+            border-top: 100px solid transparent;
+            border-right: 150px solid var(--primary-pink);
+            border-bottom: 100px solid var(--primary-pink);
+            border-left: 150px solid #ff758c;
+        }
+
+        /* The Letter inside */
+        .letter {
+            position: absolute;
+            right: 10%;
+            bottom: 0;
+            width: 80%;
+            height: 180px;
+            background: var(--paper-white);
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .letter h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--dark-pink);
+            margin: 10px 0;
+        }
+
+        .letter p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* OPEN ANIMATION */
+        .container.open .envelope-wrapper::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .container.open .letter {
+            bottom: 120px;
+            height: 250px;
+            z-index: 2;
+            transform: scale(1.1);
+        }
+
+        .hint {
+            position: absolute;
+            bottom: -60px;
+            width: 100%;
+            text-align: center;
+            color: var(--dark-pink);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="cardContainer" onclick="toggleLetter()">
+        <div class="envelope-wrapper">
+            <div class="letter">
+                <h2>Dear Sowji 💖</h2>
+                <p>
+                    Thank you for being such an amazing part of my life.<br>
+                    <strong>Happy Birthday! 🎂</strong><br>
+                    <small>Stay happy always ✨</small>
+                </p>
+            </div>
+        </div>
+        <div class="hint">CLICK TO OPEN 💌</div>
+    </div>
+
+    <audio id="myMusic" loop>
+        <source src="music/song2.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function toggleLetter() {
+            const container = document.getElementById('cardContainer');
+            const audio = document.getElementById("myMusic");
+            
+            // Toggle the open class
+            container.classList.toggle('open');
+
+            // Play music if opening
+            if (container.classList.contains('open')) {
+                audio.play().catch(function(error) {
+                    console.log("Music play blocked by browser. Interaction required.");
+                });
+            } else {
+                audio.pause();
+            }
+        }
+    </script>
+</body>
+</html>

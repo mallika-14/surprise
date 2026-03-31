@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Special Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #ffe6f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .button-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 0 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #yesBtn {
+      position: relative;
+      left: 0;
+      top: 0;
+    }
+
+    #noBtn {
+      left: 120px; /* initial position next to YES */
+      top: 0;
+      transition: all 0.3s ease; /* smooth movement */
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <h1>Are You Ready? 🎁</h1>
+    <div class="button-container">
+      <button id="yesBtn" onclick="nextPage()">YES</button>
+      <button id="noBtn" onmouseover="moveButton()">NO</button>
+    </div>
+  </div>
+
+  <script>
+    function nextPage() {
+      window.location.href = "wishes.html";
+    }
+
+    function moveButton() {
+      var btn = document.getElementById("noBtn");
+      // Keep button inside viewport
+      var maxX = window.innerWidth - btn.offsetWidth - 20;
+      var maxY = window.innerHeight - btn.offsetHeight - 20;
+
+      var x = Math.random() * maxX;
+      var y = Math.random() * maxY;
+
+      btn.style.left = x + "px";
+      btn.style.top = y + "px";
+    }
+  </script>
+  <audio id="myMusic" loop>
+  <source src="music/song2.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.body.addEventListener('click', function() {
+    var audio = document.getElementById("myMusic");
+    audio.play();
+  }, { once: true }); 
+</script>
+
+</body>
+</html>

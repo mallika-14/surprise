@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            background: #0a0a0a;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .slide img, .slide video {
+            width: 280px; /* Small, consistent size */
+            height: auto;
+            border-radius: 20px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .text {
+            margin-top: 30px;
+            color: white;
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo2.jpg">
+        <div class="text">Our First Pic...💖</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo7.jpg">
+        <div class="text">Always laughing with you ✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo3.jpg">
+        <div class="text">Recreating of our pic again ✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo4.jpg">
+        <div class="text">First Photoshot ✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo5.jpg">
+        <div class="text">First Trip ✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo6.jpg">
+        <div class="text">First western photos ✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo8.jpg">
+        <div class="text">Best photoshot✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo9.jpg">
+        <div class="text">Best Memory✨</div>
+    </div>
+
+    <div class="slide" data-type="photo">
+        <img src="photos/photo10.jpg">
+        <div class="text">First Long Trip  ✨</div>
+    </div>
+
+    <div class="slide" data-type="video">
+        <video id="memVideo" muted playsinline>
+            <source src="video/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="text">A little something extra... 🎥</div>
+    </div>
+
+    <script>
+        let index = 0;
+        let slides = document.querySelectorAll(".slide");
+
+        function showNext() {
+            // Hide previous slide
+            if (index > 0) slides[index - 1].style.display = "none";
+            
+            // If we finished all slides, go to letter
+            if (index >= slides.length) {
+                window.location.href = "letter.html";
+                return;
+            }
+
+            let currentSlide = slides[index];
+            currentSlide.style.display = "flex";
+
+            if (currentSlide.getAttribute("data-type") === "video") {
+                let video = document.getElementById("memVideo");
+                video.play();
+                // Move to next page only when video ends
+                video.onended = () => {
+                    index++;
+                    showNext();
+                };
+            } else {
+                // For photos, wait 4 seconds then move on
+                setTimeout(() => {
+                    index++;
+                    showNext();
+                }, 4000);
+            }
+        }
+
+        window.onload = showNext;
+    </script>
+    <audio id="myMusic" loop>
+  <source src="music/song1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  document.body.addEventListener('click', function() {
+    var audio = document.getElementById("myMusic");
+    audio.play();
+  }, { once: true }); 
+</script>
+</body>
+</html>
